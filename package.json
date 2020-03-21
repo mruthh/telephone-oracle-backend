@@ -1,0 +1,15 @@
+{
+  "name": "telephone-oracle",
+  "version": "1.0.0",
+  "description": "pandemic comic relief! play the question and answer game remotely",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Megan Honig",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
