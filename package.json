@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "pandemic comic relief! play the question and answer game remotely",
   "main": "index.js",
-  "scripts": {
-    "test": "npm test"
-  },
+  "scripts": {},
   "author": "Megan Honig",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^2.3.0"
+    "sequelize": "^5.21.5",
+    "socket.io": "^2.3.0",
+    "sqlite3": "^4.1.1"
   }
 }

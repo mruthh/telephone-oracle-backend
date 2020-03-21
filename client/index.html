@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Telephone Oracle - pandemic edition</title>
+    </head>
+  <body>
+    <h1>Welcome to Telephone Oracle - pandemic edition</h1>
+    <button id="host-game">Host a new game</button>
+    <form>
+    <label>Trying to join an existing game? Enter game link here. 
+      <input type="text" />
+    </label>
+    <button id="game-link" type="submit">Submit</button>
+  </form>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
+  <script src="index.js"></script>
+</html>
