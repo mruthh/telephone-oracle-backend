@@ -1,21 +1,39 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Telephone Oracle - pandemic edition</title>
-    </head>
-  <body>
-    <h1>Welcome to Telephone Oracle - pandemic edition</h1>
+
+<head>
+  <title>Telephone Oracle - pandemic edition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Welcome to Telephone Oracle - pandemic edition</h1>
+
+  <div id="start-screen">
     <button id="host-game">Host a new game</button>
-    <form>
-    <label>Trying to join an existing game? Enter game link here. 
-      <input type="text" />
-    </label>
-    <button id="game-link" type="submit">Submit</button>
-  </form>
-  </body>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-  </script>
-  <script src="index.js"></script>
+    <form action="" id="game-link">
+      <label>Trying to join an existing game? Enter game link here.
+        <input type="text" />
+      </label>
+      <button>Submit</button>
+    </form>
+  </div>
+
+  <div id="next-screen" class="hidden">
+    <form action="" id="enter-name">
+      <label for="name-input">Please enter your name</label>
+      <input name="name-input"type="text" />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="index.js"></script>
+
 </html>

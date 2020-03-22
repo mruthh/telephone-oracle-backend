@@ -4,6 +4,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http)
 
 const { resolve } = require('path')
+const { createHash } = require('crypto')
 
 const db = require('./db')
 
@@ -16,6 +17,14 @@ app.get('/game/:id', (req, res) => {
 
   // send user the game html template
   res.sendFile(resolve(__dirname, 'client', 'game.html') )
+})
+
+app.post('/api/game', (req, res) => {
+  const hash = createHash()
+
+  // TODO: create game
+  res.send(200, {})
+  
 })
 
 app.get('/', function(req, res){
