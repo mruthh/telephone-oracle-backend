@@ -4,9 +4,9 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http)
 
 const { resolve } = require('path')
-const { createHash } = require('crypto')
 
-const db = require('./db')
+require('./db/index')
+const { openGame } = require('./game')
 
 app.use(express.json())
 app.use(express.static('client'))
@@ -19,11 +19,14 @@ app.get('/game/:id', (req, res) => {
   res.sendFile(resolve(__dirname, 'client', 'game.html') )
 })
 
-app.post('/api/game', (req, res) => {
-  const hash = createHash()
-
-  // TODO: create game
-  res.send(200, {})
+app.post('/api/game', async (req, res) => {
+  try {
+    const gameData = await openGame()
+    res.send(200, gameData)
+  } catch (e) {
+    res.send(400, e)
+  }
+  
   
 })
 

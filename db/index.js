@@ -1,12 +1,8 @@
-const Sequelize = require('sequelize')
-const sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  storage: ':memory:'
-});
+const { sequelize } = require('./db')
+const { Game } = require('./models/Game')
+const { Player } = require('./models/Player')
+const { Sheet } = require('./models/Sheet')
+const { Line } = require('./models/Line')
 
-try {
-  sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+Game.hasMany(Player)
+sequelize.sync()
