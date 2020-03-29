@@ -6,8 +6,10 @@ const { randomBytes } = require('crypto')
 const openGame = async (opts) => {
   const hash = randomBytes(16).toString('hex');
   const game = await Game.create({ hash })
-  const player = await Player.create({ isHost: true })
-  game.setHost(player)
+  const player = await Player.create({ 
+    isHost: true,
+    game: game.id
+  })
   return { player: player.toJSON(), game: game.toJSON() }
 }
 

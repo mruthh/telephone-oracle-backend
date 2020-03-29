@@ -5,4 +5,12 @@ const { Sheet } = require('./models/Sheet')
 const { Line } = require('./models/Line')
 
 Game.hasMany(Player)
+Player.belongsTo(Game)
+
+Game.hasMany(Sheet)
+Sheet.belongsTo(Game)
+
+Sheet.hasMany(Line)
+Line.belongsTo(Sheet)
+
 sequelize.sync()
