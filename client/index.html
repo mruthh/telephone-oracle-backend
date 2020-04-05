@@ -7,15 +7,19 @@
 </head>
 
 <body>
-  <h1>Welcome to Telephone Oracle - pandemic edition</h1>
+  <h1>Welcome to Telephone Oracle</h1>
+  <p>Pandemic Edition</p>
 
   <div id="start-screen">
-    <button id="host-game">Host a new game</button>
+    <button id="host-game" class="start-button">Host a new game</button>
     <form action="" id="game-link">
-      <label>Trying to join an existing game? Enter game link here.
-        <input type="text" />
+      <label for="link-input">
+        Trying to join an existing game? Enter game link here.
       </label>
-      <button>Submit</button>
+      <div>
+        <input name="link-input" type="text" />
+        <button>Submit</button>
+      </div>
     </form>
   </div>
 </body>
@@ -25,6 +29,7 @@
   var socket = io();
 </script> -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="index.js"></script>
 
 </html>
