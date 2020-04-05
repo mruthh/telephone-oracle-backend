@@ -9,27 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
       data: { name }
     })
       .then(({ data }) => {
+
+        // window.location.href = `/game/${data.game.hash}`
         console.log(data)
       })
-      .catch((e) => { console.log(e) })
+      .catch((e) => { console.error(e) })
   })
-
-  // const nameForm = document.querySelector('#enter-name')
-  // nameForm.addEventListener('submit', (e) => {
-  //   e.preventDefault()
-  //   const name = nameForm.querySelector('#name-input').value
-  //   axios({
-  //     method: 'post',
-  //     url: 'api/game',
-  //     data: { name }
-  //   })
-  //     .then(({ data }) => {
-  //       console.log(data)
-  //     })
-  //     .catch((e) => { console.log(e) })
-  //   // set name in localStorage
-  //   // post to game API
-  //   // get a hash
-  //   // display a link
-  // })
 })
