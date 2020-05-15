@@ -26,9 +26,10 @@ app.post('/api/game', async (req, res) => {
   } catch (e) {
     res.send(400, e)
   }
-  
-  
 })
+
+// player API sends back player data with a QUEUE of sheets, as in queue: []
+// sheet API sends back an array of lines, oldest to newest
 
 app.get('/', function(req, res){
   res.sendFile(resolve(__dirname, 'client', 'index.html'));

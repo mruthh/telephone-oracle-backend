@@ -18,7 +18,11 @@ Player.init({
     type: DataTypes.UUID,
     model: Game,
     key: 'uuid'
-  }
+  },
+  name: {
+    type: DataTypes.STRING
+  },
+  // there should be an order column. name should default to Player + order
 }, {
   sequelize,
   modelName: 'Player'

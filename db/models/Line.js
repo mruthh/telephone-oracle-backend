@@ -3,7 +3,9 @@ const { sequelize } = require('../db')
 
 class Line extends Model {}
 
-Line.init({}, {
+Line.init({
+  //line.text is a field here
+}, {
   sequelize,
   modelName: 'Line'
 })
