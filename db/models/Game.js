@@ -9,9 +9,9 @@ class Game extends Model {
 }
 
 Game.init({
-  state: {
+  status: {
     type: DataTypes.STRING,
-    defaultValue: this.open
+    defaultValue: 'open'
   },
   uuid: {
     type: DataTypes.UUID,

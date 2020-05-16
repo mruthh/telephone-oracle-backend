@@ -1,13 +1,20 @@
 const { Player } = require('./db/models/Player')
-const { getSheets } = require('./sheet'
-)
-const getPlayers = async (gameId) => {
+const { Sheet } = require('./db/models/Sheet')
+const getPlayers = async (gameId, opts = {}) => {
+  const players = await Player.findAll({ where: { game_id: gameId } })
+  if (!opts.sheets) return players
 
-  let players = await Player.findAll({ where: { game_id: gameId } })
+  const fullPlayers = []
 
-  // get sheets (TODO: only if active game)
-  const sheets = await getSheets(gameId)
-  
+  players.forEach(async player => {
+    const sheets = await Sheet.findAll({
+      where: { active_player_id: player.uuid },
+      order: ['createdAt', 'ASC']
+    })
+    fullPlayers.push({ ...player.toJSON(), queue: sheets })
+  })
+
+  return fullPlayers
 }
 
 const createPlayer = (gameId) => {
