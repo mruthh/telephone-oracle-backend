@@ -1,4 +1,5 @@
 const { Game } = require('./db/models/Game')
+const { Player } = require('./db/models/Player')
 const { getPlayers } = require('./player')
 
 const initGame = async (opts) => {

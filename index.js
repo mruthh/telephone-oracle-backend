@@ -4,8 +4,6 @@ const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 require('dotenv').config()
 
-const { resolve } = require('path')
-
 require('./db/index')
 const { initGame } = require('./game')
 
@@ -17,7 +15,7 @@ if (process.env.dev) {
   app.use(cors())
 }
 
-app.route('api/game')
+app.route('/api/game')
   .get(async (req, res) => {
     try {
       const id = req.body.id
