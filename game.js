@@ -2,6 +2,7 @@ const { Game } = require('./db/models/Game')
 const { Player } = require('./db/models/Player')
 const { Sheet } = require('./db/models/Sheet')
 const { getPlayers } = require('./player')
+const { getSheets } = require('./sheet')
 
 const initGame = async (opts) => {
   const game = await Game.create()
@@ -46,7 +47,11 @@ const startGame = async (id, opts) => {
     }
     await createSheet(player)
   }
-  return { game, players: fullPlayers }
+
+  const sheets = await getSheets(id)
+  return {
+    game, players: fullPlayers, sheets
+  }
 }
 
 module.exports = { initGame, getGame, startGame }
