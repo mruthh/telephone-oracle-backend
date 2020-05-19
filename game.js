@@ -33,20 +33,30 @@ const startGame = async (id, opts) => {
   // set status to active
   game.set({ status: 'active' })
 
-  // start a sheet for each player
+
   const players = await getPlayers(id)
 
   const fullPlayers = []
-  for (const player of players) {
+
+  // start a sheet for each player
+  for (let i = 0; i < players.length; i++) {
+    const player = players[i]
     const createSheet = async player => {
       const sheet = await Sheet.create({
         game_id: id,
         active_player_id: player.uuid
       })
-      fullPlayers.push({ ...player.toJSON(), queue: [sheet] })
+      const nextPlayerIndex = (i + 1) % players.length
+      fullPlayers.push({
+        ...player.toJSON(),
+        queue: [sheet],
+        nextPlayerId: players[nextPlayerIndex]
+      })
     }
     await createSheet(player)
   }
+
+
 
   const sheets = await getSheets(id)
   return {
