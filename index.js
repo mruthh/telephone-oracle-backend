@@ -5,8 +5,8 @@ const io = require('socket.io')(http)
 require('dotenv').config()
 
 require('./db/index')
-const { initGame, startGame } = require('./game')
-const { getPlayers } = require('./player')
+const { initGame, startGame } = require('./lib/game')
+const { getPlayers } = require('./lib/player')
 
 // placeholder for socket io namespaces
 const namespaces = {}
@@ -22,22 +22,22 @@ if (process.env.dev) {
 app.post('/api/game/start', async (req, res) => {
   try {
     const id = req.body.id
-    if (!id) throw new Error('Request must include a game id')
+    if (!id) res.send(400, ('Request must include a game id'))
     const data = await startGame(id)
     res.send(200, data)
   } catch (e) {
-    res.send(400, e)
+    res.send(500, e)
   }
 })
 
 app.get('/api/game', async (req, res) => {
     try {
       const id = req.query.id
-      if (!id) throw new Error('Request must include a game id')
+      if (!id) res.send(400, ('Request must include a game id'))
       const data = await getGame(id)
       res.send(200, data)
     } catch (e) {
-      res.send(400, e)
+      res.send(500, e)
     }
 })
   
