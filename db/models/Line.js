@@ -8,8 +8,7 @@ class Line extends Model {}
 
 Line.init({
   order: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true
+    type: DataTypes.INTEGER
   },
   player_id: {
     type: DataTypes.UUID,
