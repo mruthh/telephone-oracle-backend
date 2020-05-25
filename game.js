@@ -1,6 +1,7 @@
 const { Game } = require('./db/models/Game')
 const { Player } = require('./db/models/Player')
 const { Sheet } = require('./db/models/Sheet')
+const { Line } = require('./db/models/Line')
 const { getPlayers } = require('./player')
 const { getSheets } = require('./sheet')
 
@@ -33,7 +34,6 @@ const startGame = async (id, opts) => {
   // set status to active
   game.set({ status: 'active' })
 
-
   const players = await getPlayers(id)
 
   const fullPlayers = []
@@ -56,12 +56,41 @@ const startGame = async (id, opts) => {
     await createSheet(player)
   }
 
-
-
   const sheets = await getSheets(id)
   return {
     game, players: fullPlayers, sheets
   }
+}
+
+const addLine = async (params) => {
+  // save line
+  const { playerId, sheetId, text } = params
+
+  const lineCount = await Line.count({ where: { sheetId } })
+  const order = lineCount + 1 // we use 1-based order for lines
+
+  // save line
+  const line = await Line.create({ ...params, order })
+
+
+  // if sheet isn't complete, pass to next player
+  const gameLength = 10 // TODO: allow setting game length
+  if (lineCount + 1 < gameLength) {
+    const player = await Player.findByPk(playerId)
+    const oldPlayerId = playerId
+    const newPlayerId = player.get('next_player_id')
+  }
+
+  // broadcast a sheetPass event
+  const payload = {
+    oldPlayerId,
+    newPlayerId,
+    sheetId,
+    prevLineText: text,
+    prevLineOrder: order
+  }
+
+
 }
 
 module.exports = { initGame, getGame, startGame }
