@@ -5,7 +5,7 @@ const io = require('socket.io')(http)
 require('dotenv').config()
 
 require('./db/index')
-const { initGame, startGame } = require('./lib/game')
+const { initGame, startGame, getGame } = require('./lib/game')
 const { getPlayers, createPlayer } = require('./lib/player')
 
 // placeholder for socket io namespaces
