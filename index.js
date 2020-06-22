@@ -32,9 +32,9 @@ app.post('/api/game/start', async (req, res) => {
 })
 
 // join a game
-app.get('api/game', async (req, res) => {
+app.get('/api/game', async (req, res) => {
     try {
-      const id = req.params.id
+      const id = req.query.id
       if (!id) res.send(400, ('Request must include a game id'))
       const data = await getGame(id)
       res.send(200, data)
