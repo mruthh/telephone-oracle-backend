@@ -36,8 +36,10 @@ app.get('/api/game', async (req, res) => {
     try {
       const id = req.query.id
       if (!id) res.send(400, ('Request must include a game id'))
-      const data = await getGame(id)
-      res.send(200, data)
+      const game = await getGame(id)
+      const players = await getPlayers(id)
+      const data = { game, players }
+      res.json(200, data)
     } catch (e) {
       res.send(500, e)
     }
