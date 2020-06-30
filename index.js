@@ -25,7 +25,8 @@ app.post('/api/game/start', async (req, res) => {
     const id = req.body.id
     if (!id) return res.send(400, ('Request must include a game id'))
     const data = await startGame(id)
-    res.send(200, data)
+    ns[id].emit('game:start', data)
+    // res.send(200, data)
   } catch (e) {
     res.send(500, e)
   }
@@ -77,7 +78,7 @@ app.post('/api/player', async (req, res) => {
       res.send(400, 'You must pass a gameId')
     } 
     const gameId = req.body.gameId
-    const player = await createPlayer({ gameId })
+    const player = await createPlayer(gameId)
     res.send(200, player)
     ns[gameId].emit('player:add', player)
   } catch (e) {
