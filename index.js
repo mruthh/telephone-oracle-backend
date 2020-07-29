@@ -89,12 +89,12 @@ app.post('/api/player', async (req, res) => {
 app.patch('/api/player', async (req, res) => {
   try {
     if (!req.body || !req.body.id) {
-      res.send(400, 'You must pass the id of the player to update')
+      return res.send(400, 'You must pass the id of the player to update')
     }
     if (!req.body.params) {
-      res.send(400, 'You must pass a params object with the params to update')
+      return res.send(400, 'You must pass a params object with the params to update')
     }
-    const player = updatePlayer(id, params)
+    const player = updatePlayer(req.body.id, req.body.params)
     res.send(200, player)
     const gameId = player.gameId
     ns[gameId].emit('player:update', player)
