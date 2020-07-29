@@ -6,7 +6,7 @@ require('dotenv').config()
 
 require('./db/index')
 const { initGame, startGame, getGame } = require('./lib/game')
-const { getPlayers, createPlayer } = require('./lib/player')
+const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
 
 // placeholder for socket io namespaces
 const ns = {}
@@ -86,6 +86,22 @@ app.post('/api/player', async (req, res) => {
   }
 })
 
+app.patch('/api/player', async (req, res) => {
+  try {
+    if (!req.body || !req.body.id) {
+      res.send(400, 'You must pass the id of the player to update')
+    }
+    if (!req.body.params) {
+      res.send(400, 'You must pass a params object with the params to update')
+    }
+    const player = updatePlayer(id, params)
+    res.send(200, player)
+    const gameId = player.gameId
+    ns[gameId].emit('player:update', player)
+  } catch (e) {
+    res.send(500, e)
+  }
+})
 
 // player API sends back player data with a QUEUE of sheets, as in queue: []
 // sheet API sends back an array of lines, oldest to newest
