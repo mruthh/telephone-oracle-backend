@@ -94,10 +94,10 @@ app.patch('/api/player', async (req, res) => {
     if (!req.body.params) {
       return res.send(400, 'You must pass a params object with the params to update')
     }
-    const player = updatePlayer(req.body.id, req.body.params)
-    res.send(200, player)
-    const gameId = player.gameId
+    const player = await updatePlayer(req.body.id, req.body.params)
+    const gameId = player.game_id
     ns[gameId].emit('player:update', player)
+    res.send(200, player)
   } catch (e) {
     res.send(500, e)
   }
