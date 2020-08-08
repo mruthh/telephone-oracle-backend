@@ -17,6 +17,10 @@ Game.init({
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
+  },
+  length: {
+    type: DataTypes.NUMBER,
+    defaultValue: 12
   }
 }, {
   sequelize,

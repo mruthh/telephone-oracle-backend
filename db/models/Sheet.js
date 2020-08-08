@@ -20,7 +20,7 @@ Sheet.init({
     type: DataTypes.UUID,
     model: Player,
     key: 'uuid'
-  },
+  }
   // has an order property
 }, {
   sequelize,

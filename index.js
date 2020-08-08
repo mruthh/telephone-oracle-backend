@@ -24,9 +24,10 @@ app.post('/api/game/start', async (req, res) => {
   try {
     const id = req.body.id
     if (!id) return res.send(400, ('Request must include a game id'))
+    // TODO: allow passing params
     const data = await startGame(id)
     ns[id].emit('game:start', data)
-    // res.send(200, data)
+    res.send(200, data)
   } catch (e) {
     res.send(500, e)
   }
