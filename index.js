@@ -7,6 +7,7 @@ require('dotenv').config()
 require('./db/index')
 const { initGame, startGame, getGame } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
+const { getLastLine } = require('./lib/line')
 
 // placeholder for socket io namespaces
 const ns = {}
@@ -99,6 +100,18 @@ app.patch('/api/player', async (req, res) => {
     const gameId = player.game_id
     ns[gameId].emit('player:update', player)
     res.send(200, player)
+  } catch (e) {
+    res.send(500, e)
+  }
+})
+
+app.get('/api/line/last', async (req, res) => {
+  try {
+    if (!req.params || !req.params.sheetId) {
+      return res.send(400, 'You must pass a sheetId')
+    }
+    const line = await getLastLine(req.params.sheetId)
+    return res.send(200, line)
   } catch (e) {
     res.send(500, e)
   }
