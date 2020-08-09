@@ -22,6 +22,7 @@ Player.init({
   name: {
     type: DataTypes.STRING
   },
+  nextPlayer_id
   // there should be an order column. name should default to Player + order
 }, {
   sequelize,

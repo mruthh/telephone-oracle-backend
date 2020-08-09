@@ -7,7 +7,7 @@ require('dotenv').config()
 require('./db/index')
 const { initGame, startGame, getGame } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
-const { getLastLine } = require('./lib/line')
+const { getLastLine, addLine } = require('./lib/line')
 
 // placeholder for socket io namespaces
 const ns = {}
@@ -112,6 +112,26 @@ app.get('/api/line/last', async (req, res) => {
     }
     const line = await getLastLine(req.params.sheetId)
     return res.send(200, line)
+  } catch (e) {
+    res.send(500, e)
+  }
+})
+
+app.post('/api/line', async (req, res) => {
+  try {
+    if (!req.body) {
+      res.send(400, 'Request body missing')
+    }
+    const { sheetId, gameId, playerId, text } = req.body
+    if (!sheetId || !gameId || !playerId || !text) {
+      res.send(400,
+        'You must include sheetId, gameId, playerId, and text in the request body')
+    }
+    const { line, toPlayerId, fromPlayerId } =
+      await addLine({ sheetId, playerId, text })
+    
+    ns[gameId].emit('sheet:pass', { toPlayerId, fromPlayerId, sheetId})
+    res.send(200, line)
   } catch (e) {
     res.send(500, e)
   }
