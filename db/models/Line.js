@@ -7,6 +7,11 @@ const { Sheet } = require('./Sheet')
 class Line extends Model {}
 
 Line.init({
+  uuid: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
   order: {
     type: DataTypes.INTEGER
   },
