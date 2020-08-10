@@ -8,6 +8,7 @@ require('./db/index')
 const { initGame, startGame, getGame } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
 const { getLastLine, addLine } = require('./lib/line')
+const { getSheets } = require('./lib/sheet')
 
 // placeholder for socket io namespaces
 const ns = {}
@@ -127,10 +128,11 @@ app.post('/api/line', async (req, res) => {
       res.send(400,
         'You must include sheetId, gameId, playerId, and text in the request body')
     }
-    const { line, toPlayerId, fromPlayerId } =
-      await addLine({ sheetId, playerId, text })
+    const line = await addLine({ sheetId, playerId, text })
     
-    ns[gameId].emit('sheet:pass', { toPlayerId, fromPlayerId, sheetId})
+    const sheets = await getSheets(gameId)
+
+    ns[gameId].emit('sheet:pass', sheets)
     res.send(200, line)
   } catch (e) {
     res.send(500, e)
