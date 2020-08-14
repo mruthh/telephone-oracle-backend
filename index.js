@@ -108,10 +108,10 @@ app.patch('/api/player', async (req, res) => {
 
 app.get('/api/line/last', async (req, res) => {
   try {
-    if (!req.params || !req.params.sheetId) {
+    if (!req.query || !req.query.sheetId) {
       return res.send(400, 'You must pass a sheetId')
     }
-    const line = await getLastLine(req.params.sheetId)
+    const line = await getLastLine(req.query.sheetId)
     return res.send(200, line)
   } catch (e) {
     res.send(500, e)
