@@ -20,8 +20,11 @@ Sheet.init({
     type: DataTypes.UUID,
     model: Player,
     key: 'uuid'
+  },
+  lineCount: {
+    type: DataTypes.INTEGER(3),
+    defaultValue: 0
   }
-  // has an order property
 }, {
   sequelize,
   modelName: 'Sheet'

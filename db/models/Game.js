@@ -19,7 +19,7 @@ Game.init({
     primaryKey: true
   },
   length: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER(3),
     defaultValue: 12
   }
 }, {
