@@ -5,7 +5,7 @@ const io = require('socket.io')(http)
 require('dotenv').config()
 
 require('./db/index')
-const { initGame, startGame, getGame } = require('./lib/game')
+const { initGame, startGame, getGame, markGameComplete } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
 const { getLastLine, addLine } = require('./lib/line')
 const { getSheets } = require('./lib/sheet')
@@ -131,6 +131,18 @@ app.post('/api/line', async (req, res) => {
     const line = await addLine({ sheetId, playerId, text })
     
     const sheets = await getSheets(gameId)
+
+    // check if game is complete
+    const gameIsComplete = sheets.every(sheet => {
+      return !sheet.active_player_id
+    })
+
+    if (gameIsComplete) {
+      markGameComplete(gameId)
+      ns[gameId].emit('game:complete', sheets)
+      res.send(200, line)
+      return
+    }
 
     ns[gameId].emit('sheet:pass', sheets)
     res.send(200, line)
