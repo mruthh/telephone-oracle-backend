@@ -7,7 +7,7 @@ require('dotenv').config()
 require('./db/index')
 const { initGame, startGame, getGame, markGameComplete } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
-const { getLastLine, addLine } = require('./lib/line')
+const { getLastLine, addLine, getLines } = require('./lib/line')
 const { getSheets } = require('./lib/sheet')
 
 // placeholder for socket io namespaces
@@ -151,8 +151,15 @@ app.post('/api/line', async (req, res) => {
   }
 })
 
-// player API sends back player data with a QUEUE of sheets, as in queue: []
-// sheet API sends back an array of lines, oldest to newest
+app.get('/api/line', async (req, res) => {
+  const sheetId = req.query.id
+  try {
+    const data = await getLines(sheetId)
+    res.send(200, data)
+  } catch (e) {
+    res.send(400, e)
+  }
+})
 
 app.get('/', function (req, res) {
   // res.sendFile(resolve(__dirname, 'client', 'index.html'));
