@@ -20,7 +20,7 @@ Game.init({
   },
   length: {
     type: DataTypes.INTEGER(3),
-    defaultValue: 12
+    defaultValue: 2
   }
 }, {
   sequelize,
