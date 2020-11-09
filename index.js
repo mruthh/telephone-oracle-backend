@@ -8,7 +8,7 @@ require('./db/index')
 const { initGame, startGame, getGame, markGameComplete } = require('./lib/game')
 const { getPlayers, createPlayer, updatePlayer } = require('./lib/player')
 const { getLastLine, addLine, getLines } = require('./lib/line')
-const { getSheets } = require('./lib/sheet')
+const { getSheets, getFullSheets } = require('./lib/sheet')
 
 // placeholder for socket io namespaces
 const ns = {}
@@ -155,6 +155,16 @@ app.get('/api/line', async (req, res) => {
   const sheetId = req.query.id
   try {
     const data = await getLines(sheetId)
+    res.send(200, data)
+  } catch (e) {
+    res.send(400, e)
+  }
+})
+
+app.get('/api/sheet/full', async (req, res) => {
+  const gameId = req.query.gameId
+  try { 
+    const data = await getFullSheets(gameId)
     res.send(200, data)
   } catch (e) {
     res.send(400, e)
