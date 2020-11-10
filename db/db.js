@@ -1,11 +1,18 @@
 const Sequelize = require('sequelize')
 
-const sqlite3 = require('sqlite3')
+const mysql = require('mysql')
 
-const sequelize = new Sequelize('database', null, null, {
-  dialect: 'sqlite',
-  dialectModule: sqlite3,
-  storage: ':memory:'
+// TODO: actually create the database if none exists!!
+
+const sequelize = new Sequelize('database', 'telephone', process.env.MYSQL_PASSWORD, {
+  dialect: 'mysql',
+  dialectModule: mysql,
+
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000
+  },
 })
 
 try {
