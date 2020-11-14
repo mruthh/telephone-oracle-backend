@@ -1,18 +1,20 @@
 const Sequelize = require('sequelize')
 
-const mysql = require('mysql')
+const mysql2 = require('mysql2')
 
-// TODO: actually create the database if none exists!!
-
-const sequelize = new Sequelize('database', 'telephone', process.env.MYSQL_PASSWORD, {
-  dialect: 'mysql',
-  dialectModule: mysql,
-
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
-  },
+const sequelize = new Sequelize(
+  'telephone_oracle',
+  'telephone',
+  process.env.MYSQL_PASSWORD, {
+    dialect: 'mysql',
+    dialectModule: mysql2,
+    host: 'localhost',
+    port: 3306,
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
 })
 
 try {
