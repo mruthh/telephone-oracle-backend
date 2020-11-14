@@ -6,7 +6,7 @@ class Player extends Model {}
 
 Player.init({
   isHost: {
-    type: Boolean,
+    type: DataTypes.BOOLEAN,
     defaultValue: false
   },
   uuid: {
