@@ -4,7 +4,7 @@
   "description": "pandemic comic relief! play the question and answer game remotely",
   "main": "index.js",
   "scripts": {
-    "npm start": "node index.js"
+    "start": "node index.js"
   },
   "author": "Megan Honig",
   "license": "MIT",
