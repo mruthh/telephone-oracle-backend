@@ -175,6 +175,6 @@ app.get('/', function (req, res) {
   // res.sendFile(resolve(__dirname, 'client', 'index.html'));
 });
 
-http.listen(process.env.port || 3000, function () {
-  console.log('listening on *:3000');
+http.listen(process.env.PORT || 3000, function () {
+  console.log(`listening on ${process.env.PORT}`);
 });
