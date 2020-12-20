@@ -3,12 +3,12 @@ const Sequelize = require('sequelize')
 const mysql2 = require('mysql2')
 
 const sequelize = new Sequelize(
-  'telephone_oracle',
-  'telephone',
+  process.env.DBNAME,
+  process.env.MYSQL_USERNAME,
   process.env.MYSQL_PASSWORD, {
     dialect: 'mysql',
     dialectModule: mysql2,
-    host: 'localhost',
+    host: process.env.DBHOST,
     port: 3306,
     pool: {
       max: 5,
