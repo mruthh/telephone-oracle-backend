@@ -51,8 +51,9 @@ app.get('/api/game', async (req, res) => {
 
 // initialize a game
 app.post('/api/game', async (req, res) => {
-    try {
-      const data = await initGame()
+  try {
+      const opts = req.body
+      const data = await initGame(opts)
       const gameId = data.game.uuid
       const namespace = '/' + gameId
       ns[gameId] = io.of(namespace)
@@ -80,8 +81,9 @@ app.post('/api/player', async (req, res) => {
     if (!req.body || !req.body.gameId) {
       res.send(400, 'You must pass a gameId')
     } 
-    const gameId = req.body.gameId
-    const player = await createPlayer(gameId)
+    const { gameId, params } = req.body
+
+    const player = await createPlayer(gameId, params)
     res.send(200, player)
     ns[gameId].emit('player:add', player)
   } catch (e) {
