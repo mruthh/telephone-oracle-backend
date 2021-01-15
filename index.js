@@ -173,6 +173,18 @@ app.get('/api/sheet/full', async (req, res) => {
   }
 })
 
+// for re-joining an in-progress game
+app.get('/api/sheet', async (req, res) => {
+  const gameId = req.query.gameId
+  // if game 
+  try {
+    const data = await getSheets(gameId)
+    res.send(200, data)
+  } catch (e) {
+    res.send(400, e)
+  }
+})
+
 app.get('/', function (req, res) {
   // res.sendFile(resolve(__dirname, 'client', 'index.html'));
 });
