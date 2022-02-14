@@ -1,8 +1,13 @@
 const express = require('express')
 const app = express()
 const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+
 require('dotenv').config()
+
+const ioOpts = process.env.dev 
+  ? { cors: { origin: 'http://localhost:8080' } } 
+  : {} 
+const io = require('socket.io')(http, ioOpts)
 
 require('./db/index')
 const { initGame, startGame, getGame, markGameComplete } = require('./lib/game')
