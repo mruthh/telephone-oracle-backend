@@ -139,7 +139,7 @@ app.post('/api/line', async (req, res) => {
     
     const sheets = await getSheets(gameId)
 
-    // check if game is complete
+    // check if game is complete...
     const gameIsComplete = sheets.every(sheet => {
       return !sheet.active_player_id
     })
