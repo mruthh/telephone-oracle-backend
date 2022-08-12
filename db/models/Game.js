@@ -14,7 +14,7 @@ Game.init({
     defaultValue: 'open'
   },
   uuid: {
-    type: DataTypes.UUID,
+    type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
