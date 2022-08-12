@@ -26,6 +26,10 @@ Player.init({
     type: DataTypes.UUID,
     model: Player,
     key: 'uuid'
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
   }
 }, {
   sequelize,

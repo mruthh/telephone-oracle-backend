@@ -13,4 +13,4 @@ Sheet.belongsTo(Game)
 Sheet.hasMany(Line)
 Line.belongsTo(Sheet)
 
-sequelize.sync()
+sequelize.sync({ alter: true })
